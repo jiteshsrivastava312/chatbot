@@ -59,7 +59,7 @@ def home():
         </script>
     </head>
     <body>
-        <h1>Simple Chatbot</h1>
+        <h1>Chatbot</h1>
         <div id="chatbox" style="border:1px solid #000; padding:10px; width:300px; height:300px; overflow:auto;"></div>
         <input type="text" id="userMessage" placeholder="Type a message...">
         <button onclick="sendMessage()">Send</button>
