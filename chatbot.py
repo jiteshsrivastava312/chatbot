@@ -1,28 +1,23 @@
 from flask import Flask, request, jsonify
+import google.generativeai as genai
 
 app = Flask(__name__)
 
-# Chatbot logic
-def chatbot_response(user_input):
-    user_input = user_input.lower()
+# Configure Gemini API
+GEMINI_API_KEY = "AIzaSyALzptugTlxe8CNQr2WR5xrmxQr3Kjy7m8"  # Replace with your Gemini API key
+genai.configure(api_key=GEMINI_API_KEY)
 
-    if "hello" in user_input or "hi" in user_input:
-        return "Hello! How can I help you today?"
-    
-    elif "how are you" in user_input:
-        return "I'm just a bot, but I'm doing great! How about you?"
-    
-    elif "bye" in user_input or "goodbye" in user_input:
-        return "Goodbye! Have a great day!"
-    
-    elif "your name" in user_input:
-        return "I'm a simple chatbot. You can call me ChatBot!"
-    
-    elif "help" in user_input:
-        return "I can help you with basic questions. Just ask me anything!"
-    
-    else:
-        return "I'm sorry, I don't understand that. Can you please rephrase?"
+# Initialize Gemini model
+model = genai.GenerativeModel("gemini-pro")
+
+# Chatbot logic using Gemini API
+def chatbot_response(user_input):
+    try:
+        # Send user input to Gemini API
+        response = model.generate_content(user_input)
+        return response.text
+    except Exception as e:
+        return f"Sorry, I encountered an error: {str(e)}"
 
 # Route for the home page
 @app.route("/")
@@ -98,7 +93,7 @@ def home():
     </head>
     <body>
         <div class="chat-container">
-            <div class="chat-header">ChatBot</div>
+            <div class="chat-header">ChatBot with Gemini</div>
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input">
                 <input type="text" id="user-input" placeholder="Type a message...">
