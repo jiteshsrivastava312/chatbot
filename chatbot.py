@@ -34,26 +34,22 @@ def home():
             body {
                 font-family: 'Arial', sans-serif;
                 background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Light gradient background */
+                margin: 0;
+                color: #333; /* Dark text for contrast */
+                height: 100vh;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
-                margin: 0;
-                color: #333; /* Dark text for contrast */
             }
-            
+
             .chat-container {
-                width: 400px;
+                width: 100%; /* Full width */
+                height: 100vh; /* Full height */
                 background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-                border-radius: 15px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-                backdrop-filter: blur(10px);
-                overflow: hidden;
                 display: flex;
                 flex-direction: column;
-                border: 1px solid rgba(255, 255, 255, 0.2);
             }
-            
+
             .chat-header {
                 background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
                 padding: 15px;
@@ -62,43 +58,51 @@ def home():
                 font-weight: bold;
                 color: #333; /* Dark text */
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000;
             }
-            
+
             .chat-messages {
                 flex: 1;
-                padding: 15px;
+                padding: 80px 15px 70px; /* Adjust padding for header and input */
                 overflow-y: auto;
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             .message {
                 max-width: 80%;
                 padding: 10px 15px;
                 border-radius: 15px;
                 animation: fadeIn 0.5s ease-in-out;
             }
-            
+
             .user-message {
                 background: #007bff; /* Blue for user messages */
                 align-self: flex-end;
                 color: #fff;
             }
-            
+
             .bot-message {
                 background: rgba(0, 0, 0, 0.05); /* Light gray for bot messages */
                 align-self: flex-start;
                 color: #333; /* Dark text */
             }
-            
+
             .chat-input {
                 display: flex;
                 border-top: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
                 padding: 10px;
                 background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 1000;
             }
-            
+
             .chat-input input {
                 flex: 1;
                 padding: 10px;
@@ -109,11 +113,11 @@ def home():
                 color: #333; /* Dark text */
                 font-size: 16px;
             }
-            
+
             .chat-input input::placeholder {
                 color: rgba(0, 0, 0, 0.5); /* Light placeholder text */
             }
-            
+
             .chat-input button {
                 padding: 10px 15px;
                 background: #007bff; /* Blue button */
@@ -124,32 +128,32 @@ def home():
                 margin-left: 10px;
                 transition: background 0.3s ease;
             }
-            
+
             .chat-input button:hover {
                 background: #0056b3; /* Darker blue on hover */
             }
-            
+
             /* Animations */
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(10px); }
                 to { opacity: 1; transform: translateY(0); }
             }
-            
+
             /* Scrollbar Styles */
             .chat-messages::-webkit-scrollbar {
                 width: 8px;
             }
-            
+
             .chat-messages::-webkit-scrollbar-track {
                 background: rgba(0, 0, 0, 0.1); /* Light track */
                 border-radius: 10px;
             }
-            
+
             .chat-messages::-webkit-scrollbar-thumb {
                 background: rgba(0, 0, 0, 0.3); /* Light thumb */
                 border-radius: 10px;
             }
-            
+
             .chat-messages::-webkit-scrollbar-thumb:hover {
                 background: rgba(0, 0, 0, 0.5); /* Darker thumb on hover */
             }
