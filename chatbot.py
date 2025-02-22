@@ -33,37 +33,37 @@ def home():
             /* General Styles */
             body {
                 font-family: 'Arial', sans-serif;
-                background: #000; /* Black background */
+                background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Light gradient background */
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
                 margin: 0;
-                color: #fff;
+                color: #333; /* Dark text for contrast */
             }
-
+            
             .chat-container {
                 width: 400px;
-                background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+                background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
                 border-radius: 15px;
-                box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Subtle shadow */
                 backdrop-filter: blur(10px);
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
                 border: 1px solid rgba(255, 255, 255, 0.2);
             }
-
+            
             .chat-header {
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
                 padding: 15px;
                 text-align: center;
                 font-size: 20px;
                 font-weight: bold;
-                color: #fff;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                color: #333; /* Dark text */
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
             }
-
+            
             .chat-messages {
                 flex: 1;
                 padding: 15px;
@@ -72,48 +72,48 @@ def home():
                 flex-direction: column;
                 gap: 10px;
             }
-
+            
             .message {
                 max-width: 80%;
                 padding: 10px 15px;
                 border-radius: 15px;
                 animation: fadeIn 0.5s ease-in-out;
             }
-
+            
             .user-message {
                 background: #007bff; /* Blue for user messages */
                 align-self: flex-end;
                 color: #fff;
             }
-
+            
             .bot-message {
-                background: rgba(255, 255, 255, 0.1); /* Light gray for bot messages */
+                background: rgba(0, 0, 0, 0.05); /* Light gray for bot messages */
                 align-self: flex-start;
-                color: #fff;
+                color: #333; /* Dark text */
             }
-
+            
             .chat-input {
                 display: flex;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                border-top: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
                 padding: 10px;
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
             }
-
+            
             .chat-input input {
                 flex: 1;
                 padding: 10px;
                 border: none;
                 border-radius: 10px;
                 outline: none;
-                background: rgba(255, 255, 255, 0.2);
-                color: #fff;
+                background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+                color: #333; /* Dark text */
                 font-size: 16px;
             }
-
+            
             .chat-input input::placeholder {
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(0, 0, 0, 0.5); /* Light placeholder text */
             }
-
+            
             .chat-input button {
                 padding: 10px 15px;
                 background: #007bff; /* Blue button */
@@ -124,34 +124,34 @@ def home():
                 margin-left: 10px;
                 transition: background 0.3s ease;
             }
-
+            
             .chat-input button:hover {
                 background: #0056b3; /* Darker blue on hover */
             }
-
+            
             /* Animations */
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(10px); }
                 to { opacity: 1; transform: translateY(0); }
             }
-
+            
             /* Scrollbar Styles */
             .chat-messages::-webkit-scrollbar {
                 width: 8px;
             }
-
+            
             .chat-messages::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(0, 0, 0, 0.1); /* Light track */
                 border-radius: 10px;
             }
-
+            
             .chat-messages::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.3);
+                background: rgba(0, 0, 0, 0.3); /* Light thumb */
                 border-radius: 10px;
             }
-
+            
             .chat-messages::-webkit-scrollbar-thumb:hover {
-                background: rgba(255, 255, 255, 0.5);
+                background: rgba(0, 0, 0, 0.5); /* Darker thumb on hover */
             }
         </style>
     </head>
