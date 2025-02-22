@@ -43,7 +43,7 @@ def home():
 
         .chat-container {
             width: 90%;
-            max-width: 800px;
+            max-width: 900px;
             height: 80vh;
             display: flex;
             background: rgba(255, 255, 255, 0.2);
@@ -54,10 +54,12 @@ def home():
         }
 
         .chat-history {
-            width: 30%;
+            width: 25%;
             overflow-y: auto;
             border-right: 2px solid rgba(255, 255, 255, 0.3);
             padding-right: 10px;
+            display: flex;
+            flex-direction: column;
         }
 
         .chat-main {
@@ -135,6 +137,22 @@ def home():
             background: #0056b3;
         }
 
+        .new-chat-button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #ff4757;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .new-chat-button:hover {
+            background: #d63031;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -144,10 +162,11 @@ def home():
 <body>
     <div class="chat-container">
         <div class="chat-history" id="chat-history">
-            <div class="chat-header">ChatBot</div>
+            <div class="chat-header">Chat History</div>
+            <button class="new-chat-button" onclick="startNewChat()">New Chat</button>
         </div>
         <div class="chat-main">
-            <div class="chat-header">Response</div>
+            <div class="chat-header">ChatBot</div>
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input">
                 <input type="text" id="user-input" placeholder="Ask something...">
@@ -189,6 +208,11 @@ def home():
                 chatMessages.appendChild(botMessage);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
+        }
+
+        function startNewChat() {
+            const chatMessages = document.getElementById("chat-messages");
+            chatMessages.innerHTML = "";
         }
 
         document.getElementById("user-input").addEventListener("keyup", function(event) {
