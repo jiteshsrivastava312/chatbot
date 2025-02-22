@@ -53,15 +53,6 @@ def home():
             padding: 20px;
         }
 
-        .chat-history {
-            width: 25%;
-            overflow-y: auto;
-            border-right: 2px solid rgba(255, 255, 255, 0.3);
-            padding-right: 10px;
-            display: flex;
-            flex-direction: column;
-        }
-
         .chat-main {
             flex: 1;
             display: flex;
@@ -161,10 +152,6 @@ def home():
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-history" id="chat-history">
-            <div class="chat-header">Chat History</div>
-            <button class="new-chat-button" onclick="startNewChat()">New Chat</button>
-        </div>
         <div class="chat-main">
             <div class="chat-header">ChatBot</div>
             <div class="chat-messages" id="chat-messages"></div>
@@ -172,6 +159,7 @@ def home():
                 <input type="text" id="user-input" placeholder="Ask something...">
                 <button onclick="sendMessage()">Send</button>
             </div>
+            <button class="new-chat-button" onclick="startNewChat()">New Chat</button>
         </div>
     </div>
 
@@ -181,17 +169,10 @@ def home():
             if (userInput.trim() === "") return;
 
             const chatMessages = document.getElementById("chat-messages");
-            const chatHistory = document.getElementById("chat-history");
             const userMessage = document.createElement("div");
             userMessage.className = "message user-message";
             userMessage.textContent = userInput;
             chatMessages.appendChild(userMessage);
-            
-            const historyItem = document.createElement("div");
-            historyItem.textContent = userInput;
-            historyItem.style.padding = "5px";
-            historyItem.style.borderBottom = "1px solid rgba(255, 255, 255, 0.3)";
-            chatHistory.appendChild(historyItem);
 
             document.getElementById("user-input").value = "";
             
