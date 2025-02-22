@@ -160,4 +160,5 @@ def get_response():
     return jsonify({"response": response})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Run the app on 0.0.0.0 (accessible from any device on the network)
+    app.run(host="0.0.0.0", port=5000, debug=True)
