@@ -33,7 +33,7 @@ def home():
             /* General Styles */
             body {
                 font-family: 'Arial', sans-serif;
-                background: linear-gradient(135deg, #1e3c72, #2a5298);
+                background: #000; /* Black background */
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -44,9 +44,9 @@ def home():
 
             .chat-container {
                 width: 400px;
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
                 border-radius: 15px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
                 backdrop-filter: blur(10px);
                 overflow: hidden;
                 display: flex;
@@ -81,13 +81,13 @@ def home():
             }
 
             .user-message {
-                background: #007bff;
+                background: #007bff; /* Blue for user messages */
                 align-self: flex-end;
                 color: #fff;
             }
 
             .bot-message {
-                background: rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.1); /* Light gray for bot messages */
                 align-self: flex-start;
                 color: #fff;
             }
@@ -116,7 +116,7 @@ def home():
 
             .chat-input button {
                 padding: 10px 15px;
-                background: #007bff;
+                background: #007bff; /* Blue button */
                 border: none;
                 border-radius: 10px;
                 color: #fff;
@@ -126,7 +126,7 @@ def home():
             }
 
             .chat-input button:hover {
-                background: #0056b3;
+                background: #0056b3; /* Darker blue on hover */
             }
 
             /* Animations */
