@@ -23,7 +23,7 @@ def chatbot_response(user_input):
 @app.route("/")
 def home():
     return '''
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -43,15 +43,28 @@ def home():
 
         .chat-container {
             width: 90%;
-            max-width: 400px;
+            max-width: 800px;
             height: 80vh;
             display: flex;
-            flex-direction: column;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             padding: 20px;
+        }
+
+        .chat-history {
+            width: 30%;
+            overflow-y: auto;
+            border-right: 2px solid rgba(255, 255, 255, 0.3);
+            padding-right: 10px;
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
         }
 
         .chat-header {
@@ -130,11 +143,16 @@ def home():
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header">Gemini AI ChatBot</div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Ask something...">
-            <button onclick="sendMessage()">Send</button>
+        <div class="chat-history" id="chat-history">
+            <div class="chat-header">ChatBot</div>
+        </div>
+        <div class="chat-main">
+            <div class="chat-header">Response</div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Ask something...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
 
@@ -144,10 +162,18 @@ def home():
             if (userInput.trim() === "") return;
 
             const chatMessages = document.getElementById("chat-messages");
+            const chatHistory = document.getElementById("chat-history");
             const userMessage = document.createElement("div");
             userMessage.className = "message user-message";
             userMessage.textContent = userInput;
             chatMessages.appendChild(userMessage);
+            
+            const historyItem = document.createElement("div");
+            historyItem.textContent = userInput;
+            historyItem.style.padding = "5px";
+            historyItem.style.borderBottom = "1px solid rgba(255, 255, 255, 0.3)";
+            chatHistory.appendChild(historyItem);
+
             document.getElementById("user-input").value = "";
             
             fetch("/get_response", {
@@ -173,7 +199,7 @@ def home():
     </script>
 </body>
 </html>
-    '''
+'''
 
 # Route to handle chatbot responses
 @app.route("/get_response", methods=["POST"])
