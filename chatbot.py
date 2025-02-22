@@ -185,10 +185,19 @@ def home():
             .then(data => {
                 const botMessage = document.createElement("div");
                 botMessage.className = "message bot-message";
-                botMessage.textContent = data.response;
+                botMessage.innerHTML = formatResponse(data.response);
                 chatMessages.appendChild(botMessage);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
+        }
+
+        function formatResponse(response) {
+            let formatted = "<ul>";
+            response.split(". ").forEach(step => {
+                formatted += `<li>${step.trim()}</li>`;
+            });
+            formatted += "</ul>";
+            return formatted;
         }
 
         function startNewChat() {
