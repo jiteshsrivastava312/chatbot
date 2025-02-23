@@ -1,24 +1,21 @@
 from flask import Flask, request, jsonify
-from openai import OpenAI
+import google.generativeai as genai
 
 app = Flask(__name__)
 
-# Configure DeepSeek API
-DeepSeek_API_KEY = "sk-0065948518d44372a46c45abb72b9166"  # Replace with your DeepSeek API key
-client = OpenAI(api_key=DeepSeek_API_KEY, base_url="https://api.deepseek.com")
+# Configure Gemini API
+GEMINI_API_KEY = "AIzaSyALzptugTlxe8CNQr2WR5xrmxQr3Kjy7m8"  # Replace with your Gemini API key
+genai.configure(api_key=GEMINI_API_KEY)
 
-# Chatbot logic using DeepSeek API
+# Initialize Gemini model
+model = genai.GenerativeModel("gemini-pro")
+
+# Chatbot logic using Gemini API
 def chatbot_response(user_input):
     try:
-        response = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant"},
-                {"role": "user", "content": user_input},
-            ],
-            stream=False
-        )
-        return response.choices[0].message.content
+        # Send user input to Gemini API
+        response = model.generate_content(user_input)
+        return response.text
     except Exception as e:
         return f"Sorry, I encountered an error: {str(e)}"
 
@@ -31,7 +28,7 @@ def home():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepSeek ChatBot</title>
+    <title>Gemini ChatBot</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -165,16 +162,20 @@ def home():
             <button class="new-chat-button" onclick="startNewChat()">New Chat</button>
         </div>
     </div>
+
     <script>
         function sendMessage() {
             const userInput = document.getElementById("user-input").value;
             if (userInput.trim() === "") return;
+
             const chatMessages = document.getElementById("chat-messages");
             const userMessage = document.createElement("div");
             userMessage.className = "message user-message";
             userMessage.textContent = userInput;
             chatMessages.appendChild(userMessage);
+
             document.getElementById("user-input").value = "";
+            
             fetch("/get_response", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -184,14 +185,26 @@ def home():
             .then(data => {
                 const botMessage = document.createElement("div");
                 botMessage.className = "message bot-message";
-                botMessage.textContent = data.response;
+                botMessage.innerHTML = formatResponse(data.response);
                 chatMessages.appendChild(botMessage);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
         }
-        function startNewChat() {
-            document.getElementById("chat-messages").innerHTML = "";
+
+        function formatResponse(response) {
+            let formatted = "<ul>";
+            response.split(". ").forEach(step => {
+                formatted += `<li>${step.trim()}</li>`;
+            });
+            formatted += "</ul>";
+            return formatted;
         }
+
+        function startNewChat() {
+            const chatMessages = document.getElementById("chat-messages");
+            chatMessages.innerHTML = "";
+        }
+
         document.getElementById("user-input").addEventListener("keyup", function(event) {
             if (event.key === "Enter") {
                 sendMessage();
@@ -210,4 +223,5 @@ def get_response():
     return jsonify({"response": response})
 
 if __name__ == "__main__":
+    # Run the app on 0.0.0.0 (accessible from any device on the network)
     app.run(host="0.0.0.0", port=5000, debug=True)
