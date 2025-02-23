@@ -32,7 +32,7 @@ def home():
     <style>
 body {
     font-family: 'Poppins', sans-serif;
-    background: url('https://www.zdnet.fr/wp-content/uploads/zdnet/2024/02/gettyimages-1487637166-365x200.jpg') no-repeat center center fixed;
+    background: url('https://t4.ftcdn.net/jpg/06/00/28/17/360_F_600281716_rzh4YkugirCTIXphXCZHd16uAvC7up7t.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
