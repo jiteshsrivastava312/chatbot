@@ -23,107 +23,51 @@ def chatbot_response(user_input):
 @app.route("/")
 def home():
     return '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT Interface</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .input-container {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            max-width: 800px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            background: white;
-        }
-        .input-container input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 10px;
-            border-radius: 5px 0 0 5px;
-        }
-        .button {
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            padding: 10px;
-        }
-        .button:hover {
-            background-color: #f0f0f0;
-        }
-        .options {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 800px;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div>ChatGPT</div>
-        <div>
-            <button class="button">Log in</button>
-            <button class="button">Sign up</button>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ChatGPT Interface</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #f7f7f7; text-align: center; padding: 50px; }
+            .input-container { display: flex; justify-content: center; margin-top: 20px; }
+            input, button { padding: 10px; margin: 5px; }
+            #chat-box { width: 60%; margin: 20px auto; padding: 10px; background: white; border-radius: 5px; max-height: 400px; overflow-y: auto; }
+        </style>
+    </head>
+    <body>
+        <h1>AI Chatbot</h1>
+        <div id="chat-box"></div>
+        <div class="input-container">
+            <input id="user-input" type="text" placeholder="Ask anything..." />
+            <button onclick="sendMessage()">Send</button>
         </div>
-    </header>
-    
-    <h1>What can I help with?</h1>
-    
-    <div class="input-container">
-        <input type="text" placeholder="Ask anything" />
-        <button class="button"><i class="fas fa-paperclip"></i></button>
-        <button class="button"><i class="fas fa-search"></i></button>
-        <button class="button"><i class="fas fa-question-circle"></i></button>
-        <button class="button">Voice</button>
-    </div>
-    
-    <div class="options">
-        <button class="button">Analyze images</button>
-        <button class="button">Brainstorm</button>
-        <button class="button">Surprise me</button>
-        <button class="button">Make a plan</button>
-        <button class="button">Code</button>
-        <button class="button">More</button>
-    </div>
-    
-    <div class="footer">
-        By messaging ChatGPT, you agree to our <a href="#">Terms</a> and have read our <a href="#">Privacy Policy</a>.
-    </div>
-</body>
-</html>
-'''
+        <script>
+            async function sendMessage() {
+                let inputField = document.getElementById("user-input");
+                let chatBox = document.getElementById("chat-box");
+                let userText = inputField.value.trim();
+                
+                if (userText === "") return;
+                
+                chatBox.innerHTML += "<p><b>You:</b> " + userText + "</p>";
+                inputField.value = "";
 
+                let response = await fetch("/get_response", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ user_input: userText })
+                });
+
+                let data = await response.json();
+                chatBox.innerHTML += "<p><b>Bot:</b> " + data.response + "</p>";
+            }
+        </script>
+    </body>
+    </html>
+    ''')
 # Route to handle chatbot responses
 @app.route("/get_response", methods=["POST"])
 def get_response():
