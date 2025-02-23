@@ -32,7 +32,7 @@ def home():
     <style>
 body {
     font-family: 'Poppins', sans-serif;
-    background: url('https://www.shutterstock.com/image-photo/chatbot-digital-tablet-artificial-intelligence-260nw-1493668328.jpg') no-repeat center center fixed;
+    background: url('https://www.zdnet.fr/wp-content/uploads/zdnet/2024/02/gettyimages-1487637166-365x200.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
