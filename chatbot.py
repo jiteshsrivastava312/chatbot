@@ -28,188 +28,98 @@ def home():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini ChatBot</title>
+    <title>ChatGPT Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-body {
-    font-family: 'Poppins', sans-serif;
-    background: url('https://t4.ftcdn.net/jpg/06/00/28/17/360_F_600281716_rzh4YkugirCTIXphXCZHd16uAvC7up7t.jpg') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-        .chat-container {
-            width: 90%;
-            max-width: 900px;
-            height: 80vh;
-            display: flex;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .chat-main {
-            flex: 1;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
             display: flex;
             flex-direction: column;
-            padding-left: 10px;
+            align-items: center;
+            padding: 50px;
         }
-
-        .chat-header {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            padding: 10px 0;
-            color: white;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
+        header {
             display: flex;
-            flex-direction: column;
-            padding-bottom: 10px;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
         }
-
-        .message {
-            max-width: 80%;
-            padding: 12px;
-            border-radius: 15px;
-            margin: 5px 0;
-            font-size: 14px;
-            animation: fadeIn 0.3s ease-in-out;
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-
-        .user-message {
-            background: #0078ff;
-            color: white;
-            align-self: flex-end;
-        }
-
-        .bot-message {
-            background: rgba(255, 255, 255, 0.8);
-            color: black;
-            align-self: flex-start;
-        }
-
-        .chat-input {
+        .input-container {
             display: flex;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 10px;
+            background: white;
         }
-
-        .chat-input input {
+        .input-container input {
             flex: 1;
-            padding: 10px;
             border: none;
-            border-radius: 10px;
             outline: none;
-            font-size: 14px;
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .chat-input button {
-            margin-left: 10px;
             padding: 10px;
+            border-radius: 5px 0 0 5px;
+        }
+        .button {
             border: none;
-            border-radius: 10px;
-            background: #0078ff;
-            color: white;
+            background: transparent;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .chat-input button:hover {
-            background: #0056b3;
-        }
-
-        .new-chat-button {
-            margin-top: 10px;
             padding: 10px;
-            border: none;
-            border-radius: 10px;
-            background: #ff4757;
-            color: white;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.3s;
         }
-
-        .new-chat-button:hover {
-            background: #d63031;
+        .button:hover {
+            background-color: #f0f0f0;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-main">
-            <div class="chat-header">ChatBot</div>
-            <div class="chat-messages" id="chat-messages"></div>
-            <div class="chat-input">
-                <input type="text" id="user-input" placeholder="Ask something...">
-                <button onclick="sendMessage()">Send</button>
-            </div>
-            <button class="new-chat-button" onclick="startNewChat()">New Chat</button>
+    <header>
+        <div>ChatGPT</div>
+        <div>
+            <button class="button">Log in</button>
+            <button class="button">Sign up</button>
         </div>
+    </header>
+    
+    <h1>What can I help with?</h1>
+    
+    <div class="input-container">
+        <input type="text" placeholder="Ask anything" />
+        <button class="button"><i class="fas fa-paperclip"></i></button>
+        <button class="button"><i class="fas fa-search"></i></button>
+        <button class="button"><i class="fas fa-question-circle"></i></button>
+        <button class="button">Voice</button>
     </div>
-
-    <script>
-        function sendMessage() {
-            const userInput = document.getElementById("user-input").value;
-            if (userInput.trim() === "") return;
-
-            const chatMessages = document.getElementById("chat-messages");
-            const userMessage = document.createElement("div");
-            userMessage.className = "message user-message";
-            userMessage.textContent = userInput;
-            chatMessages.appendChild(userMessage);
-
-            document.getElementById("user-input").value = "";
-            
-            fetch("/get_response", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ user_input: userInput }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                const botMessage = document.createElement("div");
-                botMessage.className = "message bot-message";
-                botMessage.innerHTML = formatResponse(data.response);
-                chatMessages.appendChild(botMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
-        }
-
-        function formatResponse(response) {
-            let formatted = "<ul>";
-            response.split(". ").forEach(step => {
-                formatted += `<li>${step.trim()}</li>`;
-            });
-            formatted += "</ul>";
-            return formatted;
-        }
-
-        function startNewChat() {
-            const chatMessages = document.getElementById("chat-messages");
-            chatMessages.innerHTML = "";
-        }
-
-        document.getElementById("user-input").addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        });
-    </script>
+    
+    <div class="options">
+        <button class="button">Analyze images</button>
+        <button class="button">Brainstorm</button>
+        <button class="button">Surprise me</button>
+        <button class="button">Make a plan</button>
+        <button class="button">Code</button>
+        <button class="button">More</button>
+    </div>
+    
+    <div class="footer">
+        By messaging ChatGPT, you agree to our <a href="#">Terms</a> and have read our <a href="#">Privacy Policy</a>.
+    </div>
 </body>
 </html>
 '''
