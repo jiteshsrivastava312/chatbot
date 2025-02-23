@@ -30,17 +30,16 @@ def home():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gemini ChatBot</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: url('https://source.unsplash.com/1600x900/?technology,ai') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('https://t3.ftcdn.net/jpg/00/64/16/84/360_F_64168411_KE6FpZ0VhLElbPn7f6eztY7WmbvhpMWz.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
         .chat-container {
             width: 90%;
             max-width: 900px;
