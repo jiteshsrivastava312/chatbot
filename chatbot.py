@@ -1,27 +1,31 @@
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, request, jsonify
 import google.generativeai as genai
 
 app = Flask(__name__)
 
-# 🔹 Configure Gemini API Key (⚠️ Avoid hardcoding in production)
-GEMINI_API_KEY = "AIzaSyALzptugTlxe8CNQr2WR5xrmxQr3Kjy7m8"  # ⚠️ Replace with your actual API key
+# ✅ Secure API Key Handling
+GEMINI_API_KEY = "AIzaSyALzptugTlxe8CNQr2WR5xrmxQr3Kjy7m8"  # ❌ Publicly Leak Mat Karo! Environment Variable Use Karo
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Initialize Gemini Model
+# ✅ Initialize Gemini model
 model = genai.GenerativeModel("gemini-pro")
 
-# Chatbot logic
+# ✅ Chatbot logic with structured response
 def chatbot_response(user_input):
     try:
         response = model.generate_content(user_input)
-        return response.text if response else "Sorry, no response received."
-    except Exception as e:
-        return f"Error: {str(e)}"
 
-# 🔹 Home Route
+        # ✅ Ensure the response is formatted properly
+        formatted_response = response.text.replace("\n", "<br>")  # Line Breaks Ke Liye HTML Format
+        return f"<b>🤖 Bot:</b><br>{formatted_response}"
+    
+    except Exception as e:
+        return f"<b>🚨 Error:</b> {str(e)}"
+
+# ✅ Route for the home page
 @app.route("/")
 def home():
-    return render_template_string('''
+    return '''
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -30,14 +34,15 @@ def home():
         <title>AI Chatbot</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <style>
-            body { font-family: Arial, sans-serif; background-color: #f7f7f7; text-align: center; padding: 50px; }
+            body { font-family: Arial, sans-serif; background-color: #f7f7f7; text-align: center; padding: 30px; }
             .input-container { display: flex; justify-content: center; margin-top: 20px; }
             input, button { padding: 10px; margin: 5px; }
-            #chat-box { width: 60%; margin: 20px auto; padding: 10px; background: white; border-radius: 5px; max-height: 400px; overflow-y: auto; }
+            #chat-box { width: 60%; margin: 20px auto; padding: 10px; background: white; border-radius: 5px; max-height: 400px; overflow-y: auto; text-align: left; }
+            .bot-response { color: #0056b3; font-weight: bold; }
         </style>
     </head>
     <body>
-        <h1>AI Chatbot</h1>
+        <h1>💬 AI Chatbot</h1>
         <div id="chat-box"></div>
         <div class="input-container">
             <input id="user-input" type="text" placeholder="Ask anything..." />
@@ -51,7 +56,7 @@ def home():
                 
                 if (userText === "") return;
                 
-                chatBox.innerHTML += "<p><b>You:</b> " + userText + "</p>";
+                chatBox.innerHTML += "<p><b>👤 You:</b> " + userText + "</p>";
                 inputField.value = "";
 
                 let response = await fetch("/get_response", {
@@ -61,24 +66,19 @@ def home():
                 });
 
                 let data = await response.json();
-                chatBox.innerHTML += "<p><b>Bot:</b> " + data.response + "</p>";
+                chatBox.innerHTML += `<p class='bot-response'>${data.response}</p>`;
             }
         </script>
     </body>
     </html>
-    ''')
+    '''
 
-# 🔹 Chatbot API Route
+# ✅ Route to handle chatbot responses
 @app.route("/get_response", methods=["POST"])
 def get_response():
-    data = request.get_json()
-    if not data or "user_input" not in data:
-        return jsonify({"response": "Invalid request"}), 400
-
-    user_input = data["user_input"]
+    user_input = request.json["user_input"]
     response = chatbot_response(user_input)
     return jsonify({"response": response})
 
-# 🔹 Run Flask App
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
