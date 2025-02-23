@@ -32,7 +32,7 @@ def home():
     <style>
 body {
     font-family: 'Poppins', sans-serif;
-    background: url('https://t3.ftcdn.net/jpg/00/64/16/84/360_F_64168411_KE6FpZ0VhLElbPn7f6eztY7WmbvhpMWz.jpg') no-repeat center center fixed;
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhY2glMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
