@@ -32,7 +32,7 @@ def home():
     <style>
 body {
     font-family: 'Poppins', sans-serif;
-    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhY2glMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D') no-repeat center center fixed;
+    background: url('https://www.shutterstock.com/image-photo/businessman-holding-hologram-digital-chatbot-600nw-2253920041.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
