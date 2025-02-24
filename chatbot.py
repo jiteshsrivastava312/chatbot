@@ -4,11 +4,11 @@ import google.generativeai as genai
 app = Flask(__name__)
 
 # ✅ Secure API Key Handling
-GEMINI_API_KEY = "AIzaSyALzptugTlxe8CNQr2WR5xrmxQr3Kjy7m8"  # ❌ Publicly Leak Mat Karo! Environment Variable Use Karo
+GEMINI_API_KEY = "AIzaSyAy52P5asQzo0AqHrb0zJSQUbFdAcJO6OM"  # ❌ Publicly Leak Mat Karo! Environment Variable Use Karo
 genai.configure(api_key=GEMINI_API_KEY)
 
 # ✅ Initialize Gemini model
-model = genai.GenerativeModel("gemini-pro")
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 # ✅ Chatbot logic with structured response
 def chatbot_response(user_input):
